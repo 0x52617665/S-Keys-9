@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace SKeys9 {
+namespace SKeys {
 	public static class Keys {
 		public static Dictionary<int, string> KeyNames = new Dictionary<int, string> {
 			{ 0x1, "LMB" },

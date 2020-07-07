@@ -1,4 +1,4 @@
-﻿namespace SKeys9 {
+﻿namespace SKeys {
 	partial class CounterForm {
 		/// <summary>
 		/// Required designer variable.

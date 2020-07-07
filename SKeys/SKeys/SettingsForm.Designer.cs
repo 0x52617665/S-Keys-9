@@ -1,4 +1,4 @@
-﻿namespace SKeys9 {
+﻿namespace SKeys {
 	partial class SettingsForm {
 		/// <summary>
 		/// Required designer variable.

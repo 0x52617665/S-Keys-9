@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{35F48FE3-94D0-4C7C-BB29-C7A8CBF6B8A5}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>SKeys9</RootNamespace>
-    <AssemblyName>SKeys9</AssemblyName>
+    <RootNamespace>SKeys</RootNamespace>
+    <AssemblyName>SKeys</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -48,7 +48,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>SKeys9_icon.ico</ApplicationIcon>
+    <ApplicationIcon>SKeys_icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -123,13 +123,13 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <None Include="skeys9.ini" />
+    <None Include="SKeys.ini" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="SKeys9_icon.ico" />
+    <Content Include="SKeys_icon.ico" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">

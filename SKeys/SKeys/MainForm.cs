@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace SKeys9 {
+namespace SKeys {
 	public partial class MainForm : Form {
 		Hooks _hooks;
 		Input _input;

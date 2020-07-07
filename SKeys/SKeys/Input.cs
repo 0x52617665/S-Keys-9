@@ -6,7 +6,7 @@ using System.IO;
 using System.Threading;
 using System.Windows.Forms;
 
-namespace SKeys9 {
+namespace SKeys {
 	public class Input {
 		Dictionary<int, uint> _inputsCount = new Dictionary<int, uint>();
 		Dictionary<int, TimeSpan> _inputsDuration = new Dictionary<int, TimeSpan>();

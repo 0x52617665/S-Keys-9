@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SKeys9.Properties {
+namespace SKeys.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]

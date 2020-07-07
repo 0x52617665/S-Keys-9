@@ -2,7 +2,7 @@
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace SKeys9 {
+namespace SKeys {
 	public partial class SettingsForm : Form {
 		public event EventHandler OnSettingsChanged;
 		Font _font;

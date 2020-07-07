@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using System.Windows.Input;
 
-namespace SKeys9 {
+namespace SKeys {
 	public class Hooks {
 		private const int WH_KEYBOARD_LL = 13;
 		private const int WH_MOUSE_LL = 14;
