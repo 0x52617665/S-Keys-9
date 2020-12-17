@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
+using SKeys.Core;
 
 namespace SKeys {
 	public partial class MainForm : Form {
@@ -98,7 +99,7 @@ namespace SKeys {
 		/// </summary>
 		void PrepareProgramForExit(object sender = null, EventArgs e = null) {
 			_hooks.DisableHooks();
-			_input.SaveFiles();
+			//_input.SaveFiles();
 		}
 
 		#endregion

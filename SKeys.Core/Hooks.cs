@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using System.Windows.Input;
 
-namespace SKeys {
+namespace SKeys.Core {
 	public class Hooks {
 		private const int WH_KEYBOARD_LL = 13;
 		private const int WH_MOUSE_LL = 14;
@@ -272,9 +272,6 @@ namespace SKeys {
 
 
 				case WM_MOUSEMOVE:
-					if (Configuration.LogMovement) {
-						OnMouseMove?.Invoke(this, new MoveEventArgs(hookStruct.pt.x, hookStruct.pt.y));
-					}
 					break;
 			}
 

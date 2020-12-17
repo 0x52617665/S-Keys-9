@@ -6,7 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace SKeys {
+namespace SKeys.Core
+{
 	/// <summary>
 	/// Event Args for keyboard input
 	/// </summary>

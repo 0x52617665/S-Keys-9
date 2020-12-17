@@ -6,7 +6,7 @@ using System.IO;
 using System.Threading;
 using System.Windows.Forms;
 
-namespace SKeys {
+namespace SKeys.Core {
 	public class Input {
 		Dictionary<int, uint> _inputsCount = new Dictionary<int, uint>();
 		Dictionary<int, TimeSpan> _inputsDuration = new Dictionary<int, TimeSpan>();
@@ -34,7 +34,7 @@ namespace SKeys {
 		ConcurrentQueue<MoveEventArgs> _mouseLocationQueue = new ConcurrentQueue<MoveEventArgs>();
 		Thread _mouseMoveThread;
 
-		internal Input() {
+		public Input() {
 			LoadFiles();
 			StartAutosaveTimer();
 			StartScrollRemoveTimer();
@@ -71,7 +71,7 @@ namespace SKeys {
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		internal void OnMouseScroll(object sender, ScrollEventArgs e) {
+		public void OnMouseScroll(object sender, ScrollEventArgs e) {
 			int dictionaryEntry = (int)e.Direction + 0x97;  // hijacked some unassigned VK codes' slots
 			S.Dictionaries.IncrementValue(_inputsCount, dictionaryEntry, 1);
 			AddScroll(dictionaryEntry);
@@ -122,11 +122,11 @@ namespace SKeys {
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		internal void OnButtonDown(object sender, KeyEventArgs e) {
-			if (Configuration.LogButtons) {
-				_stopwatches.KeyPressStart(e.Key);
-				S.Dictionaries.IncrementValue(_inputsCount, e.Key, 1);
-			}
+		public void OnButtonDown(object sender, KeyEventArgs e) {
+			//if (Configuration.LogButtons) {
+			//	_stopwatches.KeyPressStart(e.Key);
+			//	S.Dictionaries.IncrementValue(_inputsCount, e.Key, 1);
+			//}
 			SetButtonAsPressed(e.Key, true);
 		}
 
@@ -135,11 +135,11 @@ namespace SKeys {
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		internal void OnButtonUp(object sender, KeyEventArgs e) {
-			if (Configuration.LogButtons) {
-				TimeSpan time = _stopwatches.KeyPressStop(e.Key);
-				S.Dictionaries.IncrementValue(_inputsDuration, e.Key, time);
-			}
+		public void OnButtonUp(object sender, KeyEventArgs e) {
+			//if (Configuration.LogButtons) {
+			//	TimeSpan time = _stopwatches.KeyPressStop(e.Key);
+			//	S.Dictionaries.IncrementValue(_inputsDuration, e.Key, time);
+			//}
 			SetButtonAsPressed(e.Key, false);
 		}
 
@@ -148,15 +148,15 @@ namespace SKeys {
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		internal void OnMouseDown(object sender, MouseEventArgs e) {
-			if (Configuration.LogButtons) {
-				_stopwatches.KeyPressStart((int)e.Button);
-				S.Dictionaries.IncrementValue(_inputsCount, (int)e.Button, 1);
-			}
-			if (Configuration.LogClicks) {
-				int coordsInt = S.Bits.CombineInt(e.X / 10, e.Y / 10);
-				S.Dictionaries.IncrementValue(_mouseInteractions, coordsInt, 1);
-			}
+		public void OnMouseDown(object sender, MouseEventArgs e) {
+			//if (Configuration.LogButtons) {
+			//	_stopwatches.KeyPressStart((int)e.Button);
+			//	S.Dictionaries.IncrementValue(_inputsCount, (int)e.Button, 1);
+			//}
+			//if (Configuration.LogClicks) {
+			//	int coordsInt = S.Bits.CombineInt(e.X / 10, e.Y / 10);
+			//	S.Dictionaries.IncrementValue(_mouseInteractions, coordsInt, 1);
+			//}
 			SetButtonAsPressed((int)e.Button, true);
 		}
 
@@ -165,11 +165,11 @@ namespace SKeys {
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		internal void OnMouseUp(object sender, MouseEventArgs e) {
-			if (Configuration.LogButtons) {
-				TimeSpan time = _stopwatches.KeyPressStop((int)e.Button);
-				S.Dictionaries.IncrementValue(_inputsDuration, (int)e.Button, time);
-			}
+		public void OnMouseUp(object sender, MouseEventArgs e) {
+			//if (Configuration.LogButtons) {
+			//	TimeSpan time = _stopwatches.KeyPressStop((int)e.Button);
+			//	S.Dictionaries.IncrementValue(_inputsDuration, (int)e.Button, time);
+			//}
 			//if (Configuration.LogClicks) {
 			//	int coordsInt = MathS.CombineInt(e.X, e.Y);
 			//	MathS.AddValueToDictionaryValue(_mouseInteractions, coordsInt, 1);
@@ -200,10 +200,10 @@ namespace SKeys {
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		internal void OnMouseMove(object sender, MoveEventArgs e) {
-			if (Configuration.LogMovement) {
-				_mouseLocationQueue.Enqueue(e);
-			}
+		public void OnMouseMove(object sender, MoveEventArgs e) {
+			//if (Configuration.LogMovement) {
+			//	_mouseLocationQueue.Enqueue(e);
+			//}
 		}
 
 		/// <summary>
@@ -228,26 +228,26 @@ namespace SKeys {
 		/// </summary>
 		/// <param name="e"></param>
 		void MouseMoveProcessing(MoveEventArgs e) {
-			if (!Configuration.LogMovement) {
-				return;
-			}
+			//if (!Configuration.LogMovement) {
+			//	return;
+			//}
 
-			S.Dictionaries.IncrementValue(_inputsDuration, 0x9B, TimeSpan.FromTicks(1)); // hijacked an unassigned VK code's slot
-			double distance = S.Math.Distance2D(e.X, e.Y, _oldMouseX, _oldMouseY);
-			uint centiDistance = (uint)(distance * 100); // calculating distance to the centipixel, should be accurate enough
-			S.Dictionaries.IncrementValue(_inputsCount, 0x9B, centiDistance); // hijacked an unassigned VK code's slot
+			//S.Dictionaries.IncrementValue(_inputsDuration, 0x9B, TimeSpan.FromTicks(1)); // hijacked an unassigned VK code's slot
+			//double distance = S.Math.Distance2D(e.X, e.Y, _oldMouseX, _oldMouseY);
+			//uint centiDistance = (uint)(distance * 100); // calculating distance to the centipixel, should be accurate enough
+			//S.Dictionaries.IncrementValue(_inputsCount, 0x9B, centiDistance); // hijacked an unassigned VK code's slot
 			
-			// if value has overflowed, add one to a counter that counts overflows
-			if (_inputsCount[0x9B] < centiDistance) {
-				S.Dictionaries.IncrementValue(_inputsCount, 0x9C, 1); // hijacked an unassigned VK code's slot
-			}
+			//// if value has overflowed, add one to a counter that counts overflows
+			//if (_inputsCount[0x9B] < centiDistance) {
+			//	S.Dictionaries.IncrementValue(_inputsCount, 0x9C, 1); // hijacked an unassigned VK code's slot
+			//}
 
-			int coordsInt = S.Bits.CombineInt(e.X / 100, e.X / 100);
-			S.Dictionaries.IncrementValue(_mousePos, coordsInt, _stopwatches.MouseStop());   // TODO: This adds the new position of the mouse when really it should be the previous position added
-			_stopwatches.MouseStart();
+			//int coordsInt = S.Bits.CombineInt(e.X / 100, e.X / 100);
+			//S.Dictionaries.IncrementValue(_mousePos, coordsInt, _stopwatches.MouseStop());   // TODO: This adds the new position of the mouse when really it should be the previous position added
+			//_stopwatches.MouseStart();
 
-			_oldMouseX = e.X;
-			_oldMouseY = e.Y;
+			//_oldMouseX = e.X;
+			//_oldMouseY = e.Y;
 		}
 
 		#endregion
@@ -277,16 +277,16 @@ namespace SKeys {
 		/// Makes a backup save
 		/// </summary>
 		public void BackupSave() {
-			if (Configuration.LogButtons) {
-				File.Copy(Configuration.CountPath, Path.ChangeExtension(Configuration.CountPath, ".log.bak"), true);
-				File.Copy(Configuration.DurationPath, Path.ChangeExtension(Configuration.DurationPath, ".log.bak"), true);
-			}
-			if (Configuration.LogClicks) {
-				File.Copy(Configuration.InteractionPath, Path.ChangeExtension(Configuration.InteractionPath, ".log.bak"), true);
-			}
-			if (Configuration.LogMovement) {
-				File.Copy(Configuration.MousePath, Path.ChangeExtension(Configuration.MousePath, ".log.bak"), true);
-			}
+			//if (Configuration.LogButtons) {
+			//	File.Copy(Configuration.CountPath, Path.ChangeExtension(Configuration.CountPath, ".log.bak"), true);
+			//	File.Copy(Configuration.DurationPath, Path.ChangeExtension(Configuration.DurationPath, ".log.bak"), true);
+			//}
+			//if (Configuration.LogClicks) {
+			//	File.Copy(Configuration.InteractionPath, Path.ChangeExtension(Configuration.InteractionPath, ".log.bak"), true);
+			//}
+			//if (Configuration.LogMovement) {
+			//	File.Copy(Configuration.MousePath, Path.ChangeExtension(Configuration.MousePath, ".log.bak"), true);
+			//}
 		}
 
 		/// <summary>
@@ -294,32 +294,32 @@ namespace SKeys {
 		/// </summary>
 		public void SaveFiles() {
 			try {
-				if (Configuration.LogButtons) {
-					using (StreamWriter sw = new StreamWriter(Configuration.CountPath)) {
-						for (int key = 0; key <= 0xFF; key++) {
-							sw.WriteLine(string.Format("{0:X2} {1}", key, _inputsCount[key]));
-						}
-					}
-					using (StreamWriter sw = new StreamWriter(Configuration.DurationPath)) {
-						for (int key = 0; key <= 0xFF; key++) {
-							sw.WriteLine(string.Format("{0:X2} {1}", key, _inputsDuration[key]));
-						}
-					}
-				}
-				if (Configuration.LogMovement) {
-					using (StreamWriter sw = new StreamWriter(Configuration.MousePath)) {
-						foreach (int i in _mousePos.Keys) {
-							sw.WriteLine(string.Format("{0:X8} {1:X}", i, _mousePos[i].Ticks));
-						}
-					}
-				}
-				if (Configuration.LogClicks) {
-					using (StreamWriter sw = new StreamWriter(Configuration.InteractionPath)) {
-						foreach (int i in _mouseInteractions.Keys) {
-							sw.WriteLine(string.Format("{0:X8} {1:X}", i, _mouseInteractions[i]));
-						}
-					}
-				}
+				//if (Configuration.LogButtons) {
+				//	using (StreamWriter sw = new StreamWriter(Configuration.CountPath)) {
+				//		for (int key = 0; key <= 0xFF; key++) {
+				//			sw.WriteLine(string.Format("{0:X2} {1}", key, _inputsCount[key]));
+				//		}
+				//	}
+				//	using (StreamWriter sw = new StreamWriter(Configuration.DurationPath)) {
+				//		for (int key = 0; key <= 0xFF; key++) {
+				//			sw.WriteLine(string.Format("{0:X2} {1}", key, _inputsDuration[key]));
+				//		}
+				//	}
+				//}
+				//if (Configuration.LogMovement) {
+				//	using (StreamWriter sw = new StreamWriter(Configuration.MousePath)) {
+				//		foreach (int i in _mousePos.Keys) {
+				//			sw.WriteLine(string.Format("{0:X8} {1:X}", i, _mousePos[i].Ticks));
+				//		}
+				//	}
+				//}
+				//if (Configuration.LogClicks) {
+				//	using (StreamWriter sw = new StreamWriter(Configuration.InteractionPath)) {
+				//		foreach (int i in _mouseInteractions.Keys) {
+				//			sw.WriteLine(string.Format("{0:X8} {1:X}", i, _mouseInteractions[i]));
+				//		}
+				//	}
+				//}
 			}
 			catch (InvalidOperationException) {
 				Debug.WriteLine("Collection modified, cancelling save");
@@ -330,51 +330,51 @@ namespace SKeys {
 		/// Read saved files
 		/// </summary>
 		void LoadFiles() {
-			if (File.Exists(Configuration.CountPath)) {
-				IEnumerable<string> countTexts = File.ReadLines(Configuration.CountPath);
-				foreach (string countText in countTexts) {
-					int key = int.Parse(countText.Substring(0, 2), System.Globalization.NumberStyles.HexNumber);
-					uint count = uint.Parse(countText.Substring(3));
-					S.Dictionaries.IncrementValue(_inputsCount, key, count);
-				}
-			}
-			for (int key = 0; key <= 0xFF; key++) {
-				if (!_inputsCount.ContainsKey(key)) {
-					S.Dictionaries.IncrementValue(_inputsCount, key, 0);
-				}
-			}
+			//if (File.Exists(Configuration.CountPath)) {
+			//	IEnumerable<string> countTexts = File.ReadLines(Configuration.CountPath);
+			//	foreach (string countText in countTexts) {
+			//		int key = int.Parse(countText.Substring(0, 2), System.Globalization.NumberStyles.HexNumber);
+			//		uint count = uint.Parse(countText.Substring(3));
+			//		S.Dictionaries.IncrementValue(_inputsCount, key, count);
+			//	}
+			//}
+			//for (int key = 0; key <= 0xFF; key++) {
+			//	if (!_inputsCount.ContainsKey(key)) {
+			//		S.Dictionaries.IncrementValue(_inputsCount, key, 0);
+			//	}
+			//}
 
-			if (File.Exists(Configuration.DurationPath)) {
-				IEnumerable<string> durationTexts = File.ReadLines(Configuration.DurationPath);
-				foreach (string durationText in durationTexts) {
-					int key = int.Parse(durationText.Substring(0, 2), System.Globalization.NumberStyles.HexNumber);
-					TimeSpan duration = TimeSpan.Parse(durationText.Substring(3));
-					S.Dictionaries.IncrementValue(_inputsDuration, key, duration);
-				}
-			}
-			for (int key = 0; key <= 0xFF; key++) {
-				if (!_inputsDuration.ContainsKey(key)) {
-					S.Dictionaries.IncrementValue(_inputsDuration, key, TimeSpan.Zero);
-				}
-			}
+			//if (File.Exists(Configuration.DurationPath)) {
+			//	IEnumerable<string> durationTexts = File.ReadLines(Configuration.DurationPath);
+			//	foreach (string durationText in durationTexts) {
+			//		int key = int.Parse(durationText.Substring(0, 2), System.Globalization.NumberStyles.HexNumber);
+			//		TimeSpan duration = TimeSpan.Parse(durationText.Substring(3));
+			//		S.Dictionaries.IncrementValue(_inputsDuration, key, duration);
+			//	}
+			//}
+			//for (int key = 0; key <= 0xFF; key++) {
+			//	if (!_inputsDuration.ContainsKey(key)) {
+			//		S.Dictionaries.IncrementValue(_inputsDuration, key, TimeSpan.Zero);
+			//	}
+			//}
 
-			if (File.Exists(Configuration.MousePath)) {
-				IEnumerable<string> mouseTexts = File.ReadLines(Configuration.MousePath);
-				foreach (string mouseText in mouseTexts) {
-					int coord = int.Parse(mouseText.Substring(0, 8), System.Globalization.NumberStyles.HexNumber);
-					TimeSpan duration = TimeSpan.FromTicks(long.Parse(mouseText.Substring(9), System.Globalization.NumberStyles.HexNumber));
-					S.Dictionaries.IncrementValue(_mousePos, coord, duration);
-				}
-			}
+			//if (File.Exists(Configuration.MousePath)) {
+			//	IEnumerable<string> mouseTexts = File.ReadLines(Configuration.MousePath);
+			//	foreach (string mouseText in mouseTexts) {
+			//		int coord = int.Parse(mouseText.Substring(0, 8), System.Globalization.NumberStyles.HexNumber);
+			//		TimeSpan duration = TimeSpan.FromTicks(long.Parse(mouseText.Substring(9), System.Globalization.NumberStyles.HexNumber));
+			//		S.Dictionaries.IncrementValue(_mousePos, coord, duration);
+			//	}
+			//}
 
-			if (File.Exists(Configuration.InteractionPath)) {
-				IEnumerable<string> mouseTexts = File.ReadLines(Configuration.InteractionPath);
-				foreach (string mouseText in mouseTexts) {
-					int coord = int.Parse(mouseText.Substring(0, 8), System.Globalization.NumberStyles.HexNumber);
-					int count = int.Parse(mouseText.Substring(9), System.Globalization.NumberStyles.HexNumber);
-					S.Dictionaries.IncrementValue(_mouseInteractions, coord, count);
-				}
-			}
+			//if (File.Exists(Configuration.InteractionPath)) {
+			//	IEnumerable<string> mouseTexts = File.ReadLines(Configuration.InteractionPath);
+			//	foreach (string mouseText in mouseTexts) {
+			//		int coord = int.Parse(mouseText.Substring(0, 8), System.Globalization.NumberStyles.HexNumber);
+			//		int count = int.Parse(mouseText.Substring(9), System.Globalization.NumberStyles.HexNumber);
+			//		S.Dictionaries.IncrementValue(_mouseInteractions, coord, count);
+			//	}
+			//}
 
 			SaveFiles();
 			BackupSave();

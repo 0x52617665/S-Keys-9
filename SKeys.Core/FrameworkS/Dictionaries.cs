@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace S {
-	class Dictionaries {
+	public class Dictionaries {
 
 		#region add value to value
 

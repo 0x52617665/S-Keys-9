@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 
-namespace SKeys {
+namespace SKeys.Core {
 	class Stopwatches {
 		Dictionary<int, Stopwatch> _inputsStopwatches = new Dictionary<int, Stopwatch>();
 		Stopwatch _mouseStopwatch = new Stopwatch();
